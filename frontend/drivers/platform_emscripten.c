@@ -47,6 +47,8 @@
 #include "../../file_path_special.h"
 #include "../../paths.h"
 
+#include "../../audio/audio_driver.h"
+
 void dummyErrnoCodes(void);
 void emscripten_mainloop(void);
 
@@ -158,14 +160,24 @@ static void frontend_emscripten_get_env(int *argc, char *argv[],
 #endif
 }
 
+void cmd_apply_shader(char *preset_path) {
+   settings_t *settings          = config_get_ptr();
+   apply_shader(settings, RARCH_SHADER_GLSL, preset_path, true);
+}
+
+void cmd_audio_set_float(float val) {
+   audio_set_float(AUDIO_ACTION_VOLUME_GAIN, val);
+}
+
 int main(int argc, char *argv[])
 {
    dummyErrnoCodes();
 
    emscripten_set_canvas_element_size("#canvas", 800, 600);
    emscripten_set_element_css_size("#canvas", 800.0, 600.0);
-   emscripten_set_main_loop(emscripten_mainloop, 0, 0);
    rarch_main(argc, argv, NULL);
+   RARCH_LOG("Main End...\n");
+   emscripten_set_main_loop(emscripten_mainloop, 0, 0);
 
    return 0;
 }

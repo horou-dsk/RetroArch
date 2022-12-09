@@ -1542,9 +1542,9 @@ bool command_event_save_core_config(
    command_event_save_config(config_path, msg, sizeof(msg));
 #endif
 
-   if (!string_is_empty(msg))
-      runloop_msg_queue_push(msg, 1, 180, true, NULL,
-            MESSAGE_QUEUE_ICON_DEFAULT, MESSAGE_QUEUE_CATEGORY_INFO);
+   // if (!string_is_empty(msg))
+   //    runloop_msg_queue_push(msg, 1, 180, true, NULL,
+   //          MESSAGE_QUEUE_ICON_DEFAULT, MESSAGE_QUEUE_CATEGORY_INFO);
 
    if (overrides_active)
       runloop_st->flags |=  RUNLOOP_FLAG_OVERRIDES_ACTIVE;
@@ -1573,7 +1573,7 @@ void command_event_save_current_config(enum override_type type)
                char msg[256];
                msg[0] = '\0';
                command_event_save_config(path_get(RARCH_PATH_CONFIG), msg, sizeof(msg));
-               runloop_msg_queue_push(msg, 1, 180, true, NULL, MESSAGE_QUEUE_ICON_DEFAULT, MESSAGE_QUEUE_CATEGORY_INFO);
+               // runloop_msg_queue_push(msg, 1, 180, true, NULL, MESSAGE_QUEUE_ICON_DEFAULT, MESSAGE_QUEUE_CATEGORY_INFO);
             }
          }
          break;
@@ -1627,7 +1627,7 @@ bool command_event_main_state(unsigned cmd)
          case CMD_EVENT_SAVE_STATE:
          case CMD_EVENT_SAVE_STATE_TO_RAM:
             {
-               video_driver_state_t *video_st                 = 
+               video_driver_state_t *video_st                 =
                   video_state_get_ptr();
                bool savestate_auto_index                      =
                      settings->bools.savestate_auto_index;
@@ -1678,7 +1678,7 @@ bool command_event_main_state(unsigned cmd)
                   netplay_driver_ctl(RARCH_NETPLAY_CTL_LOAD_SAVESTATE, NULL);
 #endif
                   {
-                     video_driver_state_t *video_st                 = 
+                     video_driver_state_t *video_st                 =
                         video_state_get_ptr();
                      bool frame_time_counter_reset_after_load_state =
                         settings->bools.frame_time_counter_reset_after_load_state;
@@ -1755,15 +1755,15 @@ void command_event_reinit(const int flags)
    bool adaptive_vsync            = settings->bools.video_adaptive_vsync;
    unsigned swap_interval_config  = settings->uints.video_swap_interval;
 #endif
-   enum input_game_focus_cmd_type 
+   enum input_game_focus_cmd_type
       game_focus_cmd              = GAME_FOCUS_CMD_REAPPLY;
-   const input_device_driver_t 
+   const input_device_driver_t
       *joypad                     = input_st->primary_joypad;
 #ifdef HAVE_MFI
-   const input_device_driver_t 
+   const input_device_driver_t
       *sec_joypad                 = input_st->secondary_joypad;
 #else
-   const input_device_driver_t 
+   const input_device_driver_t
       *sec_joypad                 = NULL;
 #endif
 
