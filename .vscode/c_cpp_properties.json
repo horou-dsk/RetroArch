@@ -3,16 +3,17 @@
         {
             "name": "Mac",
             "includePath": [
-                "/usr/include",
+                "/usr/local/include",
                 "/usr/local/include",
                 "${workspaceRoot}",
-                "${workspaceRoot}/libretro-common/include"
+                "${workspaceRoot}/libretro-common/include",
+                "/usr/local/Cellar/emscripten/3.1.24/libexec/system/include"
             ],
             "defines": [],
             "intelliSenseMode": "clang-x64",
             "browse": {
                 "path": [
-                    "/usr/include",
+                    "/usr/local/include",
                     "/usr/local/include",
                     "${workspaceRoot}"
                 ],

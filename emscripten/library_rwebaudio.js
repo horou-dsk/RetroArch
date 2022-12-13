@@ -83,14 +83,16 @@ var LibraryRWebAudio = {
 
       if (!ac) return 0;
 
-      RA.context = new ac();
+      if (!RA.context) {
+         RA.context = new ac();
+      }
 
       RA.numBuffers = ((latency * RA.context.sampleRate) / (1000 * RA.BUFFER_SIZE))|0;
       if (RA.numBuffers < 2) RA.numBuffers = 2;
 
       for (var i = 0; i < RA.numBuffers; i++) {
          RA.buffers[i] = RA.context.createBuffer(2, RA.BUFFER_SIZE, RA.context.sampleRate);
-         RA.buffers[i].endTime = 0
+         RA.buffers[i].endTime = 0;
       }
 
       RA.nonblock = false;

@@ -461,7 +461,7 @@ bool content_undo_load_state(void)
     * the backing up of it and
     * its flushing could all be in their
     * own functions... */
-   if (     config_get_ptr()->bools.block_sram_overwrite 
+   if (     config_get_ptr()->bools.block_sram_overwrite
          && task_save_files
          && task_save_files->size)
    {
@@ -628,7 +628,7 @@ static size_t content_get_rastate_size(rastate_size_info_t* size)
 #ifdef HAVE_CHEEVOS
    /* 8-byte block header + content */
    if ((size->cheevos_size = rcheevos_get_serialize_size()) > 0)
-      size->total_size += 8 + CONTENT_ALIGN_SIZE(size->cheevos_size); 
+      size->total_size += 8 + CONTENT_ALIGN_SIZE(size->cheevos_size);
 #endif
    return size->total_size;
 }
@@ -824,8 +824,12 @@ static void task_save_handler(retro_task_t *task)
 
       task_save_handler_finished(task, state);
 
+      RARCH_LOG("Saved State Complete\n");
+
       if (!string_is_empty(msg))
+      {
          free(msg);
+      }
    }
 }
 
@@ -1060,7 +1064,7 @@ static bool content_load_rastate1(unsigned char* input, size_t size)
 
    while (input < stop)
    {
-      size_t     block_size = ( input[7] << 24 
+      size_t     block_size = ( input[7] << 24
             | input[6] << 16 |  input[5] << 8 | input[4]);
       unsigned char *marker = input;
 
@@ -1167,7 +1171,7 @@ static void content_load_state_cb(retro_task_t *task,
    if (size < 0 || !buf)
       goto error;
 
-   /* This means we're backing up the file in memory, 
+   /* This means we're backing up the file in memory,
     * so content_undo_save_state()
     * can restore it */
    if (load_data->flags & SAVE_TASK_FLAG_LOAD_TO_BACKUP_BUFF)
@@ -1293,7 +1297,7 @@ static void save_state_cb(retro_task_t *task,
 #ifdef HAVE_SCREENSHOTS
    char               *path   = strdup(state->path);
    settings_t     *settings   = config_get_ptr();
-   const char *dir_screenshot = settings->paths.directory_screenshot; 
+   const char *dir_screenshot = settings->paths.directory_screenshot;
 
    if (state->flags & SAVE_TASK_FLAG_THUMBNAIL_ENABLE)
       take_screenshot(dir_screenshot,
@@ -1671,7 +1675,7 @@ bool content_rename_state(const char *origin, const char *dest)
 /*
 *
 * TODO/FIXME: Figure out when and where this should be called.
-* As it is, when e.g. closing Gambatte, we get the 
+* As it is, when e.g. closing Gambatte, we get the
 * same printf message 4 times.
 */
 void content_reset_savestate_backups(void)

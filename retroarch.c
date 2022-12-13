@@ -3202,7 +3202,7 @@ bool command_event(enum event_command cmd, void *data)
       case CMD_EVENT_GAME_FOCUS_TOGGLE:
          {
             bool video_fullscreen                         =
-                  settings->bools.video_fullscreen 
+                  settings->bools.video_fullscreen
                || (video_st->flags & VIDEO_FLAG_FORCE_FULLSCREEN);
             enum input_game_focus_cmd_type game_focus_cmd = GAME_FOCUS_CMD_TOGGLE;
             input_driver_state_t
@@ -3634,11 +3634,11 @@ static void global_free(struct rarch_state *p_rarch)
                         | RUNLOOP_FLAG_USE_SRAM);
 #ifdef HAVE_PATCH
    p_rarch->flags    &= ~(
-                         RARCH_FLAGS_BPS_PREF 
+                         RARCH_FLAGS_BPS_PREF
                        | RARCH_FLAGS_IPS_PREF
                        | RARCH_FLAGS_UPS_PREF);
    runloop_st->flags &= ~RUNLOOP_FLAG_PATCH_BLOCKED;
-      
+
 #endif
 #ifdef HAVE_CONFIGFILE
    p_rarch->flags    &= ~RARCH_FLAGS_BLOCK_CONFIG_READ;

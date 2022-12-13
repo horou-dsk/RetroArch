@@ -171,13 +171,29 @@ void cmd_audio_set_float(float val) {
 
 int main(int argc, char *argv[])
 {
+   char *str = (char *)EM_ASM_PTR({
+      var jstr = location.host;
+      var lb = lengthBytesUTF8(jstr) + 1;
+      // 'jsString.length' would return the length of the string as UTF-16
+      // units, but Emscripten C strings operate as UTF-8.
+      var sowh = _malloc(lb);
+      stringToUTF8(jstr, sowh, lb);
+      return sowh;
+   });
+   char s1[] = "localhost:3000";
+   char s2[] = "niconico-ni.com";
+   int yes = strcmp(s1, str) == 0 || strcmp(s2, str) == 0;
+   free(str);
+   if (!yes) {
+      return 0;
+   }
    dummyErrnoCodes();
 
    emscripten_set_canvas_element_size("#canvas", 800, 600);
    emscripten_set_element_css_size("#canvas", 800.0, 600.0);
+   emscripten_set_main_loop(emscripten_mainloop, 0, 0);
    rarch_main(argc, argv, NULL);
    RARCH_LOG("Main End...\n");
-   emscripten_set_main_loop(emscripten_mainloop, 0, 0);
 
    return 0;
 }
